@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setup · Print3D</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f5f4f0;color:#1a1a18;padding:2rem 1rem}
+.wrap{max-width:700px;margin:0 auto}
+h1{font-size:20px;font-weight:500;margin-bottom:6px}
+.sub{font-size:14px;color:#888780;margin-bottom:2rem}
+.step{background:#fff;border:0.5px solid rgba(0,0,0,0.12);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.step-title{font-size:15px;font-weight:500;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.num{width:24px;height:24px;background:#534AB7;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+p{font-size:14px;color:#444;line-height:1.7;margin-bottom:8px}
+code{background:#1a1a18;color:#d3d1c7;padding:2px 6px;border-radius:4px;font-size:12px;font-family:monospace}
+pre{background:#1a1a18;color:#d3d1c7;border-radius:8px;padding:1rem;font-size:13px;line-height:1.6;overflow-x:auto;margin:10px 0;font-family:monospace;white-space:pre}
+.tip{background:#EAF3DE;border-radius:8px;padding:10px 14px;font-size:13px;color:#27500A;margin-top:10px}
+.warn{background:#FAEEDA;border-radius:8px;padding:10px 14px;font-size:13px;color:#633806;margin-top:10px}
+a{color:#534AB7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Setup de Print3D</h1>
+  <p class="sub">Seguí estos 4 pasos. Toma ~15 minutos la primera vez.</p>
+
+  <div class="step">
+    <div class="step-title"><span class="num">1</span>Crear cuenta en Supabase</div>
+    <p>Entrá a <a href="https://supabase.com" target="_blank">supabase.com</a> y creá una cuenta gratuita.</p>
+    <p>Creá un nuevo proyecto. Elegí un nombre (ej: <strong>print3d</strong>), una contraseña fuerte para la base de datos, y la región más cercana (South America si está disponible).</p>
+    <p>Esperá ~2 minutos a que el proyecto termine de configurarse.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-title"><span class="num">2</span>Crear las tablas</div>
+    <p>En el panel de Supabase, andá a <strong>SQL Editor</strong> (ícono de base de datos en el sidebar izquierdo).</p>
+    <p>Abrí el archivo <code>supabase_schema.sql</code> que está en la carpeta del proyecto, copiá todo el contenido y pegalo en el editor.</p>
+    <p>Hacé clic en <strong>Run</strong>. Deberías ver "Success" al final.</p>
+    <div class="tip">Esto crea todas las tablas, los permisos de seguridad y el bucket de almacenamiento para los STL.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-title"><span class="num">3</span>Configurar las variables de entorno</div>
+    <p>En Supabase, andá a <strong>Settings → API</strong>. Necesitás dos valores:</p>
+    <ul style="margin:8px 0 8px 20px;font-size:14px;line-height:2">
+      <li><strong>Project URL</strong> — empieza con <code>https://xxxxx.supabase.co</code></li>
+      <li><strong>anon public key</strong> — la clave larga que empieza con <code>eyJ...</code></li>
+    </ul>
+    <p>En la carpeta del proyecto, creá un archivo llamado <strong>.env</strong> con este contenido:</p>
+    <pre>VITE_SUPABASE_URL=https://TU-PROYECTO.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...</pre>
+    <div class="warn">El archivo .env nunca se comparte ni se sube a GitHub — contiene tus claves privadas.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-title"><span class="num">4</span>Crear usuarios y arrancar la app</div>
+    <p>En Supabase, andá a <strong>Authentication → Users → Add user</strong>. Creá los dos usuarios (vos y tu socio) con email y contraseña.</p>
+    <p>Ahora abrí una terminal (CMD o PowerShell) en la carpeta del proyecto y ejecutá:</p>
+    <pre>npm install
+npm run dev</pre>
+    <p>Abrí el navegador en <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> e ingresá con tu usuario.</p>
+    <div class="tip">La app corre localmente en tu PC. Para subirla a la nube (Vercel) y acceder desde cualquier lugar, avisame y te preparo las instrucciones en el siguiente paso.</div>
+  </div>
+
+</div>
+</body>
+</html>
